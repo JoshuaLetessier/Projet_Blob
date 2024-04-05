@@ -54,5 +54,6 @@ public class test : MonoBehaviour
             GetComponent<Rigidbody2D>().AddForce(new Vector2(-5 - GetComponent<Rigidbody2D>().velocity.x, 2/3) * jumpPower);
         }*/
 
+
     }
 }
