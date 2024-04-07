@@ -7,6 +7,7 @@ public class test : MonoBehaviour
     [Range(0,10)] public int moveSpeed;
     [Range(500, 800)] public int jumpPower;
 
+    public GameObject blobShape;
     public PlayerFeet playerFeet;
 
     // Start is called before the first frame update
@@ -19,6 +20,8 @@ public class test : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        blobShape.transform.position = this.transform.position;
+
         Vector2 curVelocity = new Vector2(0, GetComponent<Rigidbody2D>().velocity.y);
 
         if (Input.GetKey(KeyCode.A))
