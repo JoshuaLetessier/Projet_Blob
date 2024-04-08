@@ -22,7 +22,7 @@ public class Spring : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         Vector3 AB = pointB.transform.position - pointA.transform.position;
         Vector3 BA = pointA.transform.position - pointB.transform.position;

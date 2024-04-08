@@ -10,6 +10,8 @@ public class test : MonoBehaviour
     public GameObject blobShape;
     public PlayerFeet playerFeet;
 
+
+
     // Start is called before the first frame update
     void Start()
     {
