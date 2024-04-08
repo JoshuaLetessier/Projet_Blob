@@ -10,20 +10,14 @@ public class test : MonoBehaviour
     public GameObject blobShape;
     public PlayerFeet playerFeet;
 
-
-
-    // Start is called before the first frame update
     void Start()
     {
         moveSpeed = 10;
         jumpPower = 750;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        blobShape.transform.position = this.transform.position;
-
         Vector2 curVelocity = new Vector2(0, GetComponent<Rigidbody2D>().velocity.y);
 
         if (Input.GetKey(KeyCode.A))
