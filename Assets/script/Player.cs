@@ -15,6 +15,7 @@ public class test : MonoBehaviour
     public PlayerFeet playerFeet;
     public LeftWallJump leftWallJump;
     public RightWallJump rightWallJump;
+    public SlimeUpgrade slimeUpgrade;
 
     private Rigidbody2D rb;
 
@@ -48,11 +49,11 @@ public class test : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (leftWallJump.isLeftWall)
+            if (leftWallJump.isLeftWall && !playerFeet.isGrounded)
             {
                 rb.AddForce(new Vector2(jumpPower, jumpPower * 1 / 2));
             }
-            else if (rightWallJump.isRightWall)
+            else if (rightWallJump.isRightWall && !playerFeet.isGrounded)
             {
                 rb.AddForce(new Vector2(-jumpPower, jumpPower * 1/2));
             }
@@ -64,6 +65,11 @@ public class test : MonoBehaviour
             //disableA = false;
             //disableD = false;
             rb.velocity = new Vector2(rb.velocity.x, -wallSlidingSpeed);
+        }
+
+        if (slimeUpgrade)
+        {
+            rb.transform.localScale = new Vector2(2, 2);
         }
     }
 
