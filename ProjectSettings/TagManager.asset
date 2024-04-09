@@ -4,6 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Ground
+  - Slime
+  - Blob Body Part
+  - Base Shape
+  - Base Shape Part
+  tags:
   - zoneGrab
   layers:
   - Default
