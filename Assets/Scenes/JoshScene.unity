@@ -716,6 +716,7 @@ MonoBehaviour:
   playerFeet: {fileID: 2011929839}
   isGrab: 0
   rangeGrab: 100
+  stockAnchorPos: {x: 0, y: 0}
   jointPositon: {x: 0, y: 0, z: 0}
   swingForce: 1
   maxSwingAngle: 45
@@ -912,7 +913,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2011929838}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35cdd92159fc91644964fcd900294540, type: 3}
+  m_Script: {fileID: 11500000, guid: 764d5724236b37344bfb9814ca039a1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isGrounded: 0

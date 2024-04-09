@@ -68,7 +68,8 @@ public class BlobGrab : MonoBehaviour
                 startSwing();
             }
 
-            jointPositon = worldPos - transform.position;
+            Vector3 rotation = new Vector3(transform.rotation.x, transform.rotation.y, transform.rotation.z);   
+            jointPositon = worldPos - transform.position + rotation;
             joint.anchor = jointPositon;
             joint.connectedAnchor = jointPositon;
             stockAnchorPos = new Vector2(joint.connectedAnchor.x, joint.connectedAnchor.y);
@@ -85,12 +86,13 @@ public class BlobGrab : MonoBehaviour
     {
         isGrab = false;
         joint.enabled = false;
-       
+        rb.freezeRotation = true;
     }
 
     public void startSwing()
     {
         isGrab = true;
         joint.enabled = true;
+        rb.freezeRotation = false;
     }
 }
