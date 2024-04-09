@@ -11,8 +11,5 @@ public class SlimeUpgrade : MonoBehaviour
         {
             isSlime = true;
         }
-        else 
-            isSlime = false;
     }
-
 }

@@ -9,6 +9,7 @@ TagManager:
   - Blob Body Part
   - Base Shape
   - Base Shape Part
+  - Reset
   layers:
   - Default
   - TransparentFX

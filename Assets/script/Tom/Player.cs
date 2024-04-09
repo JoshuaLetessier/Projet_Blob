@@ -18,6 +18,7 @@ public class test : MonoBehaviour
     public LeftWallJump leftWallJump;
     public RightWallJump rightWallJump;
     public SlimeUpgrade slimeUpgrade;
+    public SlimeReset slimeReset;
 
     private Rigidbody2D rb;
 
@@ -69,11 +70,16 @@ public class test : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, -wallSlidingSpeed);
         }
 
-        if (slimeUpgrade)
+        if (slimeUpgrade.isSlime)
         {
-            rb.transform.localScale = new Vector2(2, 2);
+            rb.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+        }
+        if (slimeReset.isReset)
+        {
+            rb.transform.localScale = new Vector3(1f, 1f, 1f);
         }
     }
+
 
 
 }
