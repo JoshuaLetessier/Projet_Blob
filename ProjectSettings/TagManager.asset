@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Ground
   - Slime
+  - Blob Body Part
+  - Base Shape
+  - Base Shape Part
   layers:
   - Default
   - TransparentFX
