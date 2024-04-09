@@ -22,8 +22,6 @@ public class MoveBlob : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-
         Vector2 curVelocity = new Vector2(0, GetComponent<Rigidbody2D>().velocity.y);
 /*
         if (Input.GetKey(KeyCode.Q) && Input.GetKey(KeyCode.W))
@@ -36,14 +34,6 @@ public class MoveBlob : MonoBehaviour
                 Debug.Log("canon");
                 curVelocity.x -= moveSpeed;
                 blobGrab.startSwing();
-
-
-            }
-            else if(Input.GetMouseButtonDown(1) && Vector3.Distance(transform.position, blobGrab.jointPositon) == blobGrab.rangeGrab)
-            {
-                Debug.Log("canon max range");
-                return;
-            }
         }*/
         if(Input.GetKey(KeyCode.A))
             curVelocity.x -= moveSpeed;
@@ -68,18 +58,18 @@ public class MoveBlob : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.W) &&  blobGrab.isGrab == true)
         {
-           
+            Debug.Log(blobGrab.stockAnchorPos);
             blobGrab.stopSwing();
             transform.position += new Vector3(0, 1,0);
-           
             blobGrab.startSwing();
-            blobGrab.joint.connectedAnchor = blobGrab.stockAnchorPos;
+           
             Debug.Log(blobGrab.joint.connectedAnchor);
         }
-        else if(Input.GetKeyDown(KeyCode.S) && blobGrab.isGrab == true)
+        //blobGrab.joint.connectedAnchor.Set(blobGrab.stockAnchorPos.x, blobGrab.stockAnchorPos.y);
+        if (Input.GetKeyDown(KeyCode.S) && blobGrab.isGrab == true)
         {
             
-            Debug.Log(blobGrab.stockAnchorPos);
+            
             blobGrab.stopSwing();
             transform.position -= new Vector3(0, 1, 0);
 
@@ -88,4 +78,5 @@ public class MoveBlob : MonoBehaviour
             Debug.Log(blobGrab.joint.connectedAnchor);
         }
     }
+
 }

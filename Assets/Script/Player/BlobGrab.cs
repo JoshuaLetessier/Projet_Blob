@@ -47,7 +47,7 @@ public class BlobGrab : MonoBehaviour
     private void Update()
     {
         
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && isGrab == false)
         {
             Vector3 mousePosition = Input.mousePosition; // Obtenir la position de la souris
             mousePosition.z = 10f;
@@ -85,6 +85,7 @@ public class BlobGrab : MonoBehaviour
     {
         isGrab = false;
         joint.enabled = false;
+       
     }
 
     public void startSwing()
