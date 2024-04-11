@@ -34,6 +34,9 @@ public class test : MonoBehaviour
 
     private Rigidbody2D rb;
 
+
+    GameObject canvasGameOver;
+
     void Start()
     {
         moveSpeed = 10;
@@ -112,20 +115,6 @@ public class test : MonoBehaviour
             blobGrab.stopSwing();
         }
 
-        /*        if (Input.GetKeyDown(KeyCode.W) && blobGrab.isGrab == true)
-                {
-                    Debug.Log(blobGrab.stockAnchorPos);
-                    blobGrab.stopSwing();
-                    transform.position += new Vector3(0, 1, 0);
-                    blobGrab.startSwing();           
-                    //blobGrab.joint.connectedAnchor.Set(0, blobGrab.stockAnchorPos.y - 1);
-
-                    Debug.Log(blobGrab.joint.connectedAnchor);
-                }
-            rb.AddForce(new Vector2(-jumpPower, jumpPower * 1/2));
-        }
-    }*/
-
     for (int i = 0; i<4; i++)
     {
         GetComponent<LineRenderer>().SetPosition(i, blobShape[i].GetComponent<Transform>().position);
@@ -159,19 +148,12 @@ public class test : MonoBehaviour
         {
             rb.transform.localScale = new Vector3(1f, 1f, 1f);
         }*/
-
-        if (playerFeet.isDead)
-        {
-            //rb.transform.position = new Vector3(-5, 5);
-            rb.transform.localScale = new Vector2(2, 2);
-        }
-
-
     }
 
     public IEnumerator waitForSpring()
     {
         blobGrab.ressort.SetActive(true);
+       
         blobGrab.ressort.GetComponent<SpringJoint2D>().distance = 1;
         blobGrab.ressort.GetComponent<SpringJoint2D>().frequency = 1;
 
@@ -192,14 +174,6 @@ public class test : MonoBehaviour
         canvas.enabled = true;
     }
 
-    public void RestartGame()
-    {
-        SceneManager.LoadScene(1);
-    }
-
-    public void BackToMainMenu()
-    {
-        SceneManager.LoadScene(0);
-    }
+   
 
 }   
