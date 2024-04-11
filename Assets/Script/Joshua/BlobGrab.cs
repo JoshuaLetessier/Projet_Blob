@@ -81,6 +81,7 @@ public class BlobGrab : MonoBehaviour
 
             springJoint.anchor = jointPositon;
             springJoint.connectedAnchor = jointPositon;
+            springJoint.connectedBody = rb;
 
             stockAnchorPos = new Vector2(joint.connectedAnchor.x, joint.connectedAnchor.y);
         }

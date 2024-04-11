@@ -17,11 +17,13 @@ public class test : MonoBehaviour
     public ForceMode2D forceMode = ForceMode2D.Impulse;
 
     public GameObject blobShape;
+    public GameObject center;
     public PlayerFeet playerFeet;
     public LeftWallJump leftWallJump;
     public RightWallJump rightWallJump;
     public SlimeUpgrade slimeUpgrade;
     public BlobGrab blobGrab;
+    public TakeObject takeObject;
 
     private Rigidbody2D rb;
 
@@ -29,7 +31,7 @@ public class test : MonoBehaviour
     {
         moveSpeed = 10;
         slideSpeed = 5;
-        jumpPower = 500;
+        jumpPower = 800;
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -55,6 +57,7 @@ public class test : MonoBehaviour
             if (childRB != null)
             {
                 childRB.velocity = curVelocity;
+                child.position = center.transform.position;
             }
         }
 
@@ -62,7 +65,6 @@ public class test : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && playerFeet.isGrounded)
         {
             rb.AddForce(Vector2.up * jumpPower);
-
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -136,8 +138,10 @@ public class test : MonoBehaviour
     public IEnumerator waitForSpring()
     {
         blobGrab.ressort.SetActive(true);
-        blobGrab.ressort.GetComponent<SpringJoint2D>().distance = 10;
-        blobGrab.ressort.GetComponent<SpringJoint2D>().frequency = 5;
+        blobGrab.ressort.GetComponent<SpringJoint2D>().distance = 1;
+        blobGrab.ressort.GetComponent<SpringJoint2D>().frequency = 1;
+
+        gameObject.transform.position = new Vector2(blobGrab.jointPositon.x, blobGrab.jointPositon.y);
         yield return new WaitForSeconds(1);
         blobGrab.ressort.SetActive(false);
     }
