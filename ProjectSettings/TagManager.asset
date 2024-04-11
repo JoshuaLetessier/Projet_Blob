@@ -9,6 +9,8 @@ TagManager:
   - Blob Body Part
   - Base Shape
   - Base Shape Part
+  - Reset
+  - Death
   - usable object
   layers:
   - Default
