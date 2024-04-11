@@ -1,7 +1,8 @@
 using System.Collections;
-using Unity.VisualScripting;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
 
 public class test : MonoBehaviour
 {
@@ -22,15 +23,14 @@ public class test : MonoBehaviour
     public int force = 10;
     public ForceMode2D forceMode = ForceMode2D.Impulse;
 
-    public GameObject blobShape;
     public GameObject center;
     public PlayerFeet playerFeet;
     public LeftWallJump leftWallJump;
     public RightWallJump rightWallJump;
-    public SlimeUpgrade slimeUpgrade;
+    //public SlimeUpgrade slimeUpgrade;
     public BlobGrab blobGrab;
     public TakeObject takeObject;
-    public SlimeReset slimeReset;
+   // public SlimeReset slimeReset;
 
     private Rigidbody2D rb;
 
@@ -103,44 +103,44 @@ public class test : MonoBehaviour
 
         if (Input.GetKey(KeyCode.W) && blobGrab.isGrab == true)
         {
-            blobGrab.stopSwing(); 
+            blobGrab.stopSwing();
             //Debug.Log("ouii");
-           
-          
+
+
             StartCoroutine(waitForSpring());
-           
+
             blobGrab.stopSwing();
         }
 
-            /*        if (Input.GetKeyDown(KeyCode.W) && blobGrab.isGrab == true)
-                    {
-                        Debug.Log(blobGrab.stockAnchorPos);
-                        blobGrab.stopSwing();
-                        transform.position += new Vector3(0, 1, 0);
-                        blobGrab.startSwing();           
-                        //blobGrab.joint.connectedAnchor.Set(0, blobGrab.stockAnchorPos.y - 1);
+        /*        if (Input.GetKeyDown(KeyCode.W) && blobGrab.isGrab == true)
+                {
+                    Debug.Log(blobGrab.stockAnchorPos);
+                    blobGrab.stopSwing();
+                    transform.position += new Vector3(0, 1, 0);
+                    blobGrab.startSwing();           
+                    //blobGrab.joint.connectedAnchor.Set(0, blobGrab.stockAnchorPos.y - 1);
 
-                        Debug.Log(blobGrab.joint.connectedAnchor);
-                    }
-                rb.AddForce(new Vector2(-jumpPower, jumpPower * 1/2));
-            }
+                    Debug.Log(blobGrab.joint.connectedAnchor);
+                }
+            rb.AddForce(new Vector2(-jumpPower, jumpPower * 1/2));
         }
+    }*/
 
-        for (int i = 0; i<4; i++)
-        {
-            GetComponent<LineRenderer>().SetPosition(i, blobShape[i].GetComponent<Transform>().position);
-        }
-        GetComponent<LineRenderer>().SetPosition(4, blobShape[0].GetComponent<Transform>().position+new Vector3(0, 0.1f));
+    for (int i = 0; i<4; i++)
+    {
+        GetComponent<LineRenderer>().SetPosition(i, blobShape[i].GetComponent<Transform>().position);
+    }
+    GetComponent<LineRenderer>().SetPosition(4, blobShape[0].GetComponent<Transform>().position+new Vector3(0, 0.1f));
 
-                    if (Input.GetKeyDown(KeyCode.S) && blobGrab.isGrab == true)
-                    {
-                        blobGrab.stopSwing();
-                        transform.position -= new Vector3(0, 1, 0);
+    if (Input.GetKeyDown(KeyCode.S) && blobGrab.isGrab == true)
+    {
+        blobGrab.stopSwing();
+        transform.position -= new Vector3(0, 1, 0);
 
-                        blobGrab.startSwing();
-                        blobGrab.joint.connectedAnchor = blobGrab.stockAnchorPos;
-                        Debug.Log(blobGrab.joint.connectedAnchor);
-                    }*/
+        blobGrab.startSwing();
+        blobGrab.joint.connectedAnchor = blobGrab.stockAnchorPos;
+        Debug.Log(blobGrab.joint.connectedAnchor);
+    }
 
 
         bool isWallSliding = (leftWallJump.isLeftWall || rightWallJump.isRightWall) && !playerFeet.isGrounded;
@@ -151,14 +151,14 @@ public class test : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, -wallSlidingSpeed);
         }
 
-        if (slimeUpgrade.isSlime)
+        /*if (slimeUpgrade.isSlime)
         {
             rb.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
         }
         if (slimeReset.isReset)
         {
             rb.transform.localScale = new Vector3(1f, 1f, 1f);
-        }
+        }*/
 
         if (playerFeet.isDead)
         {
@@ -166,7 +166,7 @@ public class test : MonoBehaviour
             rb.transform.localScale = new Vector2(2, 2);
         }
 
-       
+
     }
 
     public IEnumerator waitForSpring()
@@ -186,12 +186,10 @@ public class test : MonoBehaviour
         {
             child.AddForce(transform.position);
         }
-            //playerFeet.isDead = false;
-            //rb.velocity = new Vector2(0,0);
-            isControllActive = false;
-            canvas.enabled = true;
-        }
-
+        //playerFeet.isDead = false;
+        //rb.velocity = new Vector2(0,0);
+        isControllActive = false;
+        canvas.enabled = true;
     }
 
     public void RestartGame()
@@ -204,4 +202,4 @@ public class test : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-}
+}   
