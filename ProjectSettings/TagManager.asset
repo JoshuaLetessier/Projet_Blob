@@ -9,8 +9,7 @@ TagManager:
   - Blob Body Part
   - Base Shape
   - Base Shape Part
-  tags:
-  - zoneGrab
+  - usable object
   layers:
   - Default
   - TransparentFX

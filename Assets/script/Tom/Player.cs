@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class test : MonoBehaviour
@@ -49,9 +49,20 @@ public class test : MonoBehaviour
 
         rb.velocity = curVelocity;
 
+        foreach (Transform child in transform)
+        {
+            Rigidbody2D childRB = child.GetComponent<Rigidbody2D>();
+            if (childRB != null)
+            {
+                childRB.velocity = curVelocity;
+            }
+        }
+
+
         if (Input.GetKeyDown(KeyCode.Space) && playerFeet.isGrounded)
         {
             rb.AddForce(Vector2.up * jumpPower);
+
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -72,29 +83,38 @@ public class test : MonoBehaviour
                 GetComponent<Rigidbody2D>().AddForce(blobGrab.jointPositon, forceMode + force);
             }
         }
-       
 
-        if (Input.GetKeyDown(KeyCode.W) && blobGrab.isGrab == true)
+        if (Input.GetKey(KeyCode.W) && blobGrab.isGrab == true)
         {
-            Debug.Log(blobGrab.stockAnchorPos);
+            blobGrab.stopSwing(); 
+            //Debug.Log("ouii");
+           
+          
+            StartCoroutine(waitForSpring());
+           
             blobGrab.stopSwing();
-            transform.position += new Vector3(0, 1, 0);
-            blobGrab.startSwing();
-
-            Debug.Log(blobGrab.joint.connectedAnchor);
         }
-        //blobGrab.joint.connectedAnchor.Set(blobGrab.stockAnchorPos.x, blobGrab.stockAnchorPos.y);
-        if (Input.GetKeyDown(KeyCode.S) && blobGrab.isGrab == true)
-        {
 
+            /*        if (Input.GetKeyDown(KeyCode.W) && blobGrab.isGrab == true)
+                    {
+                        Debug.Log(blobGrab.stockAnchorPos);
+                        blobGrab.stopSwing();
+                        transform.position += new Vector3(0, 1, 0);
+                        blobGrab.startSwing();           
+                        //blobGrab.joint.connectedAnchor.Set(0, blobGrab.stockAnchorPos.y - 1);
 
-            blobGrab.stopSwing();
-            transform.position -= new Vector3(0, 1, 0);
+                        Debug.Log(blobGrab.joint.connectedAnchor);
+                    }
 
-            blobGrab.startSwing();
-            blobGrab.joint.connectedAnchor = blobGrab.stockAnchorPos;
-            Debug.Log(blobGrab.joint.connectedAnchor);
-        }
+                    if (Input.GetKeyDown(KeyCode.S) && blobGrab.isGrab == true)
+                    {
+                        blobGrab.stopSwing();
+                        transform.position -= new Vector3(0, 1, 0);
+
+                        blobGrab.startSwing();
+                        blobGrab.joint.connectedAnchor = blobGrab.stockAnchorPos;
+                        Debug.Log(blobGrab.joint.connectedAnchor);
+                    }*/
 
 
         bool isWallSliding = (leftWallJump.isLeftWall || rightWallJump.isRightWall) && !playerFeet.isGrounded;
@@ -108,6 +128,25 @@ public class test : MonoBehaviour
         if (slimeUpgrade)
         {
             rb.transform.localScale = new Vector2(2, 2);
+        }
+
+       
+    }
+
+    public IEnumerator waitForSpring()
+    {
+        blobGrab.ressort.SetActive(true);
+        blobGrab.ressort.GetComponent<SpringJoint2D>().distance = 10;
+        blobGrab.ressort.GetComponent<SpringJoint2D>().frequency = 5;
+        yield return new WaitForSeconds(1);
+        blobGrab.ressort.SetActive(false);
+    }
+
+    public void moveChild()
+    {
+        foreach (Rigidbody2D child in transform)
+        {
+            child.AddForce(transform.position);
         }
     }
 

@@ -12,6 +12,7 @@ public class BlobGrab : MonoBehaviour
 
     public new Transform transform;
     public HingeJoint2D joint;
+    public GameObject ressort;
     public Rigidbody2D rb;
 
     public PlayerFeet playerFeet;
@@ -33,6 +34,7 @@ public class BlobGrab : MonoBehaviour
 
     //Variables pour la propultion élastique
     public int moveSpeed = 10;
+    private SpringJoint2D springJoint;
 
 
     // Start is called before the first frame update
@@ -40,7 +42,7 @@ public class BlobGrab : MonoBehaviour
     {
         contactFilter = new ContactFilter2D();
         stopSwing();
-
+        springJoint = ressort.GetComponent<SpringJoint2D>();
     }
 
     // Update is called once per frame
@@ -55,6 +57,7 @@ public class BlobGrab : MonoBehaviour
             Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePosition);
 
             RaycastHit2D[] hits = new RaycastHit2D[1]; // Tableau pour stocker le résultat du raycast
+           
             int numHits = Physics2D.Raycast(transform.position, worldPos, contactFilter, hits, rangeGrab);
             
             if (numHits > 0)
@@ -63,15 +66,22 @@ public class BlobGrab : MonoBehaviour
                 RaycastHit2D hit = hits[0];
 
                 Debug.DrawRay(transform.position, worldPos - transform.position, Color.yellow, rangeGrab);
-                Debug.Log(hit.transform.name);
-                Debug.Log(worldPos);
+               /* Debug.Log(hit.transform.name);
+                Debug.Log(worldPos);*/
                 startSwing();
             }
 
-            Vector3 rotation = new Vector3(transform.rotation.x, transform.rotation.y, transform.rotation.z);   
-            jointPositon = worldPos - transform.position + rotation;
+           
+           // Debug.Log(worldPos-transform.position);
+            jointPositon = worldPos - transform.position;
+           // Debug.Log(jointPositon);
+          
             joint.anchor = jointPositon;
             joint.connectedAnchor = jointPositon;
+
+            springJoint.anchor = jointPositon;
+            springJoint.connectedAnchor = jointPositon;
+
             stockAnchorPos = new Vector2(joint.connectedAnchor.x, joint.connectedAnchor.y);
         }
     }
@@ -87,6 +97,11 @@ public class BlobGrab : MonoBehaviour
         isGrab = false;
         joint.enabled = false;
         rb.freezeRotation = true;
+
+        if (transform.rotation.z > 0f)
+        {
+            transform.rotation = new Quaternion(0, 0, 0, 0); 
+        }
     }
 
     public void startSwing()
@@ -94,5 +109,11 @@ public class BlobGrab : MonoBehaviour
         isGrab = true;
         joint.enabled = true;
         rb.freezeRotation = false;
+        joint.connectedAnchor = stockAnchorPos;
+
+        if (transform.rotation.z > 0f)
+        {
+            transform.rotation = new Quaternion(0, 0, 0, 0);
+        }
     }
 }
