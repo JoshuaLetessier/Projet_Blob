@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class test : MonoBehaviour
 {
@@ -13,7 +14,11 @@ public class test : MonoBehaviour
     [Range(0, 10)] public int moveSpeed;
     [Range(500, 800)] public int jumpPower;
 
-    public GameObject blobShape;
+
+    bool isControllActive;
+    public Canvas canvas;
+
+    GameObject[] blobShape;
     public PlayerFeet playerFeet;
     public LeftWallJump leftWallJump;
     public RightWallJump rightWallJump;
@@ -28,11 +33,20 @@ public class test : MonoBehaviour
         slideSpeed = 5;
         jumpPower = 500;
         rb = GetComponent<Rigidbody2D>();
+        isControllActive = true;
+        canvas.enabled = false;
+
+        blobShape = GameObject.FindGameObjectsWithTag("Blob Body Part");
     }
 
     void Update()
     {
         Vector2 curVelocity = new Vector2(0, rb.velocity.y);
+
+        if (!isControllActive)
+        {
+            return;
+        }
 
         if (Input.GetKey(KeyCode.A) && disableA)
         {
@@ -62,6 +76,12 @@ public class test : MonoBehaviour
             }
         }
 
+        for (int i = 0; i<4; i++)
+        {
+            GetComponent<LineRenderer>().SetPosition(i, blobShape[i].GetComponent<Transform>().position);
+        }
+        GetComponent<LineRenderer>().SetPosition(4, blobShape[0].GetComponent<Transform>().position+new Vector3(0, 0.1f));
+
         bool isWallSliding = (leftWallJump.isLeftWall || rightWallJump.isRightWall) && !playerFeet.isGrounded;
         if (isWallSliding)
         {
@@ -78,8 +98,26 @@ public class test : MonoBehaviour
         {
             rb.transform.localScale = new Vector3(1f, 1f, 1f);
         }
+
+        if (playerFeet.isDead)
+        {
+            //rb.transform.position = new Vector3(-5, 5);
+            //playerFeet.isDead = false;
+            //rb.velocity = new Vector2(0,0);
+            isControllActive = false;
+            canvas.enabled = true;
+        }
+
     }
 
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(1);
+    }
 
+    public void BackToMainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
 
 }
