@@ -154,10 +154,10 @@ public class test : MonoBehaviour
     {
         blobGrab.ressort.SetActive(true);
        
-        blobGrab.ressort.GetComponent<SpringJoint2D>().distance = 1;
-        blobGrab.ressort.GetComponent<SpringJoint2D>().frequency = 1;
+        blobGrab.ressort.GetComponent<SpringJoint2D>().distance = 2;
+        blobGrab.ressort.GetComponent<SpringJoint2D>().frequency = 3;
 
-        gameObject.transform.position = new Vector2(blobGrab.jointPositon.x, blobGrab.jointPositon.y);
+        ///gameObject.transform.position = new Vector2(blobGrab.jointPositon.x, blobGrab.jointPositon.y);
         yield return new WaitForSeconds(1);
         blobGrab.ressort.SetActive(false);
     }

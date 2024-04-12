@@ -37,12 +37,22 @@ public class BlobGrab : MonoBehaviour
     private SpringJoint2D springJoint;
 
 
+    public LineRenderer lineRenderer;
+
     // Start is called before the first frame update
     void Start()
     {
         contactFilter = new ContactFilter2D();
         stopSwing();
         springJoint = ressort.GetComponent<SpringJoint2D>();
+
+        if (lineRenderer == null)
+        {
+            lineRenderer = gameObject.AddComponent<LineRenderer>();
+            lineRenderer.startWidth = 0.1f;
+            lineRenderer.endWidth = 0.1f;
+            lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
+        }
     }
 
     // Update is called once per frame
@@ -66,8 +76,8 @@ public class BlobGrab : MonoBehaviour
                 RaycastHit2D hit = hits[0];
 
                 Debug.DrawRay(transform.position, worldPos - transform.position, Color.yellow, rangeGrab);
-               /* Debug.Log(hit.transform.name);
-                Debug.Log(worldPos);*/
+               
+                //DrawRaycastInGame(transform.position, worldPos - transform.position, Color.yellow); non utilsable actuellement mettre le grab dans un sous compossant de blob
                 startSwing();
             }
 
@@ -78,7 +88,7 @@ public class BlobGrab : MonoBehaviour
           
             joint.anchor = jointPositon;
             joint.connectedAnchor = jointPositon;
-            springJoint.transform.position = jointPositon;
+
             springJoint.anchor = jointPositon;
             springJoint.connectedAnchor = jointPositon;
             springJoint.connectedBody = rb;
@@ -116,5 +126,13 @@ public class BlobGrab : MonoBehaviour
         {
             transform.rotation = new Quaternion(0, 0, 0, 0);
         }
+    }
+
+    void DrawRaycastInGame(Vector3 origin, Vector3 direction, Color color)
+    {
+        lineRenderer.startColor = color;
+        lineRenderer.endColor = color;
+        lineRenderer.SetPosition(0, origin);
+        lineRenderer.SetPosition(1, origin + direction);
     }
 }
