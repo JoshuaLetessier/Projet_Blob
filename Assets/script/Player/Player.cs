@@ -80,6 +80,10 @@ public class test : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.Alpha4))
         {
+            rb.transform.position = new Vector3(193, 37, 0);
+        }
+        if (Input.GetKey(KeyCode.Alpha5))
+        {
             rb.transform.position = new Vector3(241, 16, 0);
         }
 
