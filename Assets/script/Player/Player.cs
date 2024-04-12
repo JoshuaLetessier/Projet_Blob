@@ -66,6 +66,23 @@ public class test : MonoBehaviour
         {
             curVelocity.x += moveSpeed;
         }
+        if (Input.GetKey(KeyCode.Alpha1))
+        {
+            rb.transform.position = new Vector3(24, 5, 0);
+        }
+        if (Input.GetKey(KeyCode.Alpha2))
+        {
+            rb.transform.position = new Vector3(136, 2, 0);
+        }
+        if (Input.GetKey(KeyCode.Alpha3))
+        {
+            rb.transform.position = new Vector3(167, 12, 0);
+        }
+        if (Input.GetKey(KeyCode.Alpha4))
+        {
+            rb.transform.position = new Vector3(241, 16, 0);
+        }
+
 
         rb.velocity = curVelocity;
 
